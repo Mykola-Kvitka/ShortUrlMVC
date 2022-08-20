@@ -1,0 +1,34 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@model ShortUrlMVC.PL.ViewModels.ShortURLViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Short URL</h5>
+    </div>
+
+
+
+    <ul class="list-group list-group-flush">
+        <li class="card-text"> Original Url: @Model.OrginalURLId</li>
+        <li class="card-text"> Short Url: @Model.Short</li>
+        <li class="card-text">Owner: @Model.OwnerId</li>
+        <li class="card-text"> Creation date: @Model.CreateDate</li>
+    </ul>
+
+    <ul class="list-group list-group-flush">
+
+        @if (User.IsInRole("admin") || User.Identity.Name == @Model.OwnerId)
+        {
+            <form method="post" asp-action="Delete" asp-route-id="@Model.OrginalURLId" class="btn-group-sm">
+                <input type="hidden" asp-for="@Model.OrginalURLId" />
+                <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Delete?')" />
+            </form>
+        }
+    </ul>
+</div>

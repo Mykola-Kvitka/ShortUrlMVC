@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ShortUrlMVC.PL.ViewModels.ShortURLViewModel>
+
+
+<div class="card text-center">
+    <div class="card-header">
+        <h3>Welcome to the ShortUrls!</h3>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Original URL</th>
+                <th scope="col">Short URL</th>
+                <th scope="col">Owner</th>
+                <th scope="col">Details</th>
+            </tr>
+        </thead>
+        @foreach (var urls in Model)
+        {
+        <tbody>
+            <tr>
+                <td>@urls.OrginalURLId</td>
+                <td>@urls.Short</td>
+                <td>@urls.OwnerId</td>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <td>
+                        <div class="btn-group">
+                            <a href="~/Home/Detail/@urls.OrginalURLId" type="button" class="btn btn-sm btn-outline-secondary">Details</a>
+                        </div>
+                    </td>
+                }
+            </tr>
+        </tbody>
+        }
+    </table>
+
+
+</div>
